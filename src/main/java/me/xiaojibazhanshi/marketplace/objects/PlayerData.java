@@ -1,8 +1,12 @@
 package me.xiaojibazhanshi.marketplace.objects;
 
-import java.util.HashSet;
-import java.util.List;
+
 import java.util.Set;
 import java.util.UUID;
 
-public record PlayerData(UUID uuid, Set<Transaction> transactions) {}
+
+/**
+ * @param uuid uuid of the player
+ * @param transactions a set of (serialized) transactions made by the player
+ */
+public record PlayerData(UUID uuid, Set<String> transactions) {}

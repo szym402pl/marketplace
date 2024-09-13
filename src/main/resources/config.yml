@@ -1,12 +1,11 @@
 # Hi :) Here's the config ~XiaoJibaZhanshi
 
 # Available commands: /marketplace, /sell <price>, /blackmarket, /transactions <player>, /marketplacereload
+# Just for your information, all open GUIs refresh each minute or if someone puts something up/buys something
+# This is just done to minimise lag, we don't want everything updating each second
 
 # You can freely use color codes in gui names, item names, etc.
-# If any values are found to be missing/incorrect, the plugin will use its default values.
-
-# Placeholder formats:
-# {time-until-refresh} - XX:XX:XX
+# If any values are found to be missing/incorrect, the plugin will use its default values
 
 black-market-options:
   refresh-time-in-minutes: 5 # min 1, max 10080 (a week)
@@ -21,27 +20,42 @@ black-market-options:
 marketplace-options:
   max-listings-per-player: 2 # min 1, no max amount. 2 means maximum of 2 listings put up at the same time.
 
-listing-signatures: # What this does is it adds the line on the bottom of listing's lore, just a small touch
-  enabled: true
-  black-market: "&0&lBLACK MARKET LISTING"
-  marketplace: "&8&lMARKETPLACE LISTING"
-
 command-permissions:
-  marketplace: "marketplace.view"
   sell: "marketplace.sell"
-  blackmarket: "marketplace.blackmarket"
+  marketplace: "marketplace.view"
   transactions: "marketplace.history"
+  blackmarket: "marketplace.blackmarket"
   marketplacereload: "marketplace.reload"
 
-guis:
+gui-item-format:
+  listing: # Available placeholders: {item-name}, {original-item-lore}, {seller-name}, {listing-date}, {price}
+    name: "{item-name}"
+    lore:
+      - "{original-item-lore}"
+      - ""
+      - "&7Listed by: &b{seller-name}"
+      - "&7Listed on: &b{listing-date}"
+      - ""
+      - "&7Price: &b{price}"
+  transaction: # Available placeholders: {item-name}, {original-item-lore}, {seller-name}, {purchase-date}
+    name: "{item-name}"
+    lore:
+      - "{original-item-lore}"
+      - ""
+      - "&7Purchased on: &b{purchase-date}"
+      - "&7Sold by: &b{seller-name}"
 
-  filler:
+gui-options:
+  gui-filler: # Set to none if you don't want a filler
     material: GRAY_STAINED_GLASS_PANE
     name: " "
     lore: []
-  black-market:
+  black-market-gui:
     name: "&0Black Market &7| &c{time-until-refresh} &7until refresh" # Available placeholder(s): {time-until-refresh}
     rows: 3 # min: 2, max: 6
-  normal-market:
-    name: "&aMarketplace &7| &c{time-until-refresh} &7until refresh" # Available placeholder(s): {time-until-refresh}
+  normal-market-gui:
+    name: "&aMarketplace"
     rows: 3 # min: 2, max: 6
+  transaction-gui:
+    name: "&7Your transactions"
+    rows: 3

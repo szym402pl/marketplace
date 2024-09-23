@@ -1,23 +1,31 @@
 # Hi :) Here's the config ~XiaoJibaZhanshi
 
 # Available commands: /marketplace, /sell <price>, /blackmarket, /transactions <player>, /marketplacereload
-# Just for your information, all open GUIs refresh each minute or if someone puts something up/buys something
-# This is just done to minimise lag, we don't want everything updating each second
+# Just for your information, all open GUIs refresh each minute OR if someone puts something up/buys something
 
 # You can freely use color codes in gui names, item names, etc.
 # If any values are found to be missing/incorrect, the plugin will use its default values
 
+# IMPORTANT!
+mongodb-connection-string: "replace this"
+
+# Not necessary
+discord-webhook-url: "your_url" # you can replace this if you want a logging of each purchase
+
+# Main options of the plugin
 black-market-options:
   refresh-time-in-minutes: 5 # min 1, max 10080 (a week)
-  max-item-amount:
-    random: true # if true, will randomly select UP TO (amount) items
-    amount: 5 # min 1, no max amount - it will just keep going until it's the same as normal listing amount
-  buyer:
-    discount-in-percent: 50.0
-  seller:
-    reimbursement-in-percent: 200.0 # % of the original price, not the discounted one!
+  item-amount: 5 # will select 5 random items from the marketplace
+  buyer-discount-in-percent: 50.0
+  seller-reimbursement-in-percent: 200.0 # % of the original price, not the discounted one!
 
 marketplace-options:
+  disallowed-items:
+    - bedrock
+    - rotten_flesh
+  price:
+    minimum: 0 # set on 0 to disable (the plugin won't accept negative prices anyway)
+    maximum: 0 # set on 0 to disable
   max-listings-per-player: 2 # min 1, no max amount. 2 means maximum of 2 listings put up at the same time.
 
 command-permissions:
@@ -28,34 +36,47 @@ command-permissions:
   marketplacereload: "marketplace.reload"
 
 gui-item-format:
-  listing: # Available placeholders: {item-name}, {original-item-lore}, {seller-name}, {listing-date}, {price}
+  listing: # Available placeholders: {item-name}, {seller-name}, {listing-date}, {price}
     name: "{item-name}"
     lore:
-      - "{original-item-lore}"
       - ""
       - "&7Listed by: &b{seller-name}"
       - "&7Listed on: &b{listing-date}"
-      - ""
       - "&7Price: &b{price}"
-  transaction: # Available placeholders: {item-name}, {original-item-lore}, {seller-name}, {purchase-date}
+      - ""
+      - "&7LMB to purchase &8| &7RMB to remove from auction"
+  transaction: # Available placeholders: {item-name}, {seller-name}, {purchase-date}
     name: "{item-name}"
     lore:
-      - "{original-item-lore}"
       - ""
       - "&7Purchased on: &b{purchase-date}"
       - "&7Sold by: &b{seller-name}"
 
 gui-options:
-  gui-filler: # Set to none if you don't want a filler
-    material: GRAY_STAINED_GLASS_PANE
+  page-buttons:
+    next:
+      name: "&cNext"
+      material: PAPER
+      lore:
+        - "&7Click me to move"
+        - "&7to the next page"
+    previous:
+      name: "&cPrevious"
+      material: PAPER
+      lore:
+        - "&7Click me to move"
+        - "&7to the previous page"
+  gui-filler: # Set to none if you don't want a filler, this just fills the bottom row and looks nicer imo
     name: " "
+    material: GRAY_STAINED_GLASS_PANE
     lore: []
   black-market-gui:
-    name: "&0Black Market &7| &c{time-until-refresh} &7until refresh" # Available placeholder(s): {time-until-refresh}
+    time-until-refresh-format: "&c{h}&7:&c{min}&7:&c{sec}" # Available placeholders: {d}, {h}, {min}, {sec}
+    name: "&0Black Market &7| {time-until-refresh} &7until refresh" # Available placeholder(s): {time-until-refresh}
     rows: 3 # min: 2, max: 6
-  normal-market-gui:
+  marketplace-gui:
     name: "&aMarketplace"
     rows: 3 # min: 2, max: 6
   transaction-gui:
     name: "&7Your transactions"
-    rows: 3
+    rows: 3 # min: 2, max: 6

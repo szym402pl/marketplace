@@ -1,4 +1,7 @@
 package me.xiaojibazhanshi.marketplace.listeners;
 
-public class MarketplacePurchaseListener {
+import org.bukkit.event.Listener;
+
+public class MarketplacePurchaseListener implements Listener {
+    //TODO: Make discord webhook send stuff whenever the custom event is fired
 }

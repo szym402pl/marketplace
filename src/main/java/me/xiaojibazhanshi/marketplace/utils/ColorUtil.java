@@ -10,14 +10,14 @@ public class ColorUtil {
 
     private ColorUtil() {}
 
-    public static String getColoredText(String text) {
+    public static String color(String text) {
         return ChatColor.translateAlternateColorCodes('&', text);
     }
 
     public static List<String> getColoredList(List<String> lore) {
         if (lore.isEmpty()) return lore;
 
-        return List.copyOf(lore).stream().map(ColorUtil::getColoredText).toList();
+        return List.copyOf(lore).stream().map(ColorUtil::color).toList();
     }
 
     public static ItemStack colorItemsNameAndLore(ItemStack item) {
@@ -27,7 +27,7 @@ public class ColorUtil {
         if (meta == null) return item;
 
         if (meta.hasDisplayName()) {
-            String coloredName = getColoredText(meta.getDisplayName());
+            String coloredName = color(meta.getDisplayName());
             meta.setDisplayName(coloredName);
         }
 

@@ -4,7 +4,7 @@ main: me.xiaojibazhanshi.marketplace.Marketplace
 api-version: '1.20'
 authors: [ XiaoJibaZhanshi ]
 description: A Marketplace plugin :)
-ommands:
+commands:
   sell:
     description: Lists the item in players hand in the marketplace for sale.
   marketplace:

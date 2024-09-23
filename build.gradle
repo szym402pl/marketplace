@@ -28,6 +28,8 @@ repositories {
 }
 
 dependencies {
+    // https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver
+    implementation("org.mongodb:mongo-java-driver:3.12.14")
     implementation("dev.triumphteam:triumph-gui:3.1.10")
     compileOnly("net.kyori:adventure-text-serializer-plain:4.17.0")
     compileOnly('org.projectlombok:lombok:1.18.34')
